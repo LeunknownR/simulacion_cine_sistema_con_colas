@@ -1,5 +1,6 @@
 import { OutputColor } from "../utils/colors";
 import { generateRandomInteger, probabilityAt } from "../utils/helpers";
+import { ServiceTimeRange } from "../utils/types";
 import CinemaSimulationLog from "./CinemaSimulationLog";
 import Customer from "./Customer";
 import CustomerQueue from "./CustomerQueue";
@@ -8,13 +9,15 @@ import SimulationLog from "./SimulationLog";
 export default class CinemaSimulation {
     private customerQueue: CustomerQueue;
     private totalCustomers: number;
+    private serviceTimeRange: ServiceTimeRange;
     private log: CinemaSimulationLog;
     private isAttending: boolean;
-    constructor(totalCustomers: number) {
+    constructor(totalCustomers: number, serviceTimeRange: ServiceTimeRange) {
         this.customerQueue = new CustomerQueue();
         this.totalCustomers = totalCustomers;
         this.log = new CinemaSimulationLog(new SimulationLog(), this.customerQueue);
         this.isAttending = false;
+        this.serviceTimeRange = serviceTimeRange;
     }
     start(probability: number): void {
         this.log.reset();
@@ -45,7 +48,8 @@ export default class CinemaSimulation {
         this.log.show();
     }
     private arriveToQueue(minutes: number): void {
-        const newCustomer = new Customer(generateRandomInteger(1, 5));
+        const [limInf, limSup] = this.serviceTimeRange;
+        const newCustomer = new Customer(generateRandomInteger(limInf, limSup));
         this.customerQueue.enqueu(newCustomer);
         this.log.joinCustomerToQueue(minutes, newCustomer);
         this.log.queueState();

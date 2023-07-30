@@ -1,0 +1,1 @@
+export type ServiceTimeRange = [number, number];
