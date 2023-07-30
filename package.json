@@ -1,7 +1,7 @@
 {
 	"name": "simulacion_cine_sistema_con_colas",
     "version": "1.0.0",
-    "description": "Simulación de cine con sistema de colas",
+    "description": "Simulación de cine con sistema de colas.",
     "main": "src/index.ts",
 	"scripts": {
 		"start": "ts-node-dev src/index.ts"
