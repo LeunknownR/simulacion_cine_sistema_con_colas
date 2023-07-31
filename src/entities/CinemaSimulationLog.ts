@@ -33,7 +33,7 @@ export default class CinemaSimulationLog {
     endAttention(minutes: number, customer: Customer): void {
         this.log.addRecord({
             minutes,
-            content: `${customer.formatted} terminó de atenderse en ${customer.serviceTime} min.`,
+            content: `${customer.formatted} terminó de atenderse en ${customer.serviceTime} min y compró una entrada para "${customer.movie}".`,
             color: OutputColor.Red
         });
     }
